@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدارس الهمة العلمية الأهلية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e40af 0%, #f97316 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1e40af;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .data-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .error-message {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        
+        .success-message {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-orange-500 rounded-full flex items-center justify-center ml-3">
+                        <span class="text-white font-bold text-lg">ه</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">مدارس الهمة العلمية الأهلية</span>
+                </div>
+                <div class="hidden md:flex space-x-reverse space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 transition-colors">الرئيسية</a>
+                    <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">عن المدرسة</a>
+                    <a href="#departments" class="text-gray-700 hover:text-blue-600 transition-colors">الأقسام</a>
+                    <a href="#activities" class="text-gray-700 hover:text-blue-600 transition-colors">الأنشطة</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">اتصل بنا</a>
+                </div>
+                <button onclick="showLoginModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    دخول الطلاب
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="gradient-bg text-white pt-20 pb-16">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <div class="fade-in">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        Welcome to Al-Himmah Private Scientific School
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-4 opacity-90">
+                        Where Excellence Begins
+                    </p>
+                    <p class="text-lg md:text-xl mb-8 opacity-80">
+                        مرحباً بكم في مدارس الهمة العلمية الأهلية - حيث يبدأ التميز والإبداع
+                    </p>
+                    <button onclick="showLoginModal()" class="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
+                        دخول الطلاب
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">عن مدارس الهمة العلمية الأهلية</h2>
+                    <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                        مدارس الهمة العلمية الأهلية (Madaris Al-Himmah Private Scientific School) هي مؤسسة تعليمية أهلية رائدة تهدف إلى تقديم تعليم متميز وشامل للطلاب، 
+                        مع التركيز على بناء شخصية الطالب وتنمية قدراته العلمية والإبداعية في بيئة تعليمية محفزة ومتطورة. 
+                        نحن نؤمن بأن التعليم الجيد هو أساس بناء مستقبل مشرق لأبنائنا الطلاب.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Departments Section -->
+        <section id="departments" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">الأقسام الدراسية</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover bg-white rounded-xl p-8 text-center shadow-lg">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎓</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">المرحلة الابتدائية</h3>
+                        <p class="text-gray-600">تأسيس قوي للمهارات الأساسية والقيم التربوية</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-xl p-8 text-center shadow-lg">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">📚</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">المرحلة المتوسطة</h3>
+                        <p class="text-gray-600">تطوير المهارات المتقدمة والتفكير النقدي</p>
+                    </div>
+                    <div class="card-hover bg-white rounded-xl p-8 text-center shadow-lg">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎯</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">المرحلة الثانوية</h3>
+                        <p class="text-gray-600">إعداد الطلاب للجامعة والحياة المهنية</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activities Section -->
+        <section id="activities" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">الأنشطة المدرسية</h2>
+                </div>
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-3xl">⚽</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">الأنشطة الرياضية</h4>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-3xl">🎨</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">الأنشطة الفنية</h4>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-3xl">🔬</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">الأنشطة العلمية</h4>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-3xl">📖</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">الأنشطة الثقافية</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">اتصل بنا</h2>
+                </div>
+                <div class="max-w-2xl mx-auto">
+                    <form class="bg-white rounded-xl p-8 shadow-lg">
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">الاسم</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">البريد الإلكتروني</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2">الرسالة</label>
+                            <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Student Dashboard (Hidden by default) -->
+    <div id="student-dashboard" class="hidden">
+        <!-- Dashboard Header -->
+        <div class="bg-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 py-6">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img id="student-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='%23e5e7eb'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" 
+                             alt="صورة الطالب" class="w-16 h-16 rounded-full border-4 border-blue-500 ml-4">
+                        <div>
+                            <h2 id="student-name" class="text-2xl font-bold text-gray-800">اسم الطالب</h2>
+                            <p id="student-grade" class="text-gray-600">الصف الدراسي</p>
+                        </div>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Grades Card -->
+                <div class="card-hover bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="showSection('grades')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center ml-3">
+                            <span class="text-2xl">📊</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">الدرجات</h3>
+                    </div>
+                    <p class="text-gray-600">عرض درجات الامتحانات والواجبات</p>
+                </div>
+
+                <!-- Attendance Card -->
+                <div class="card-hover bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="showSection('attendance')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center ml-3">
+                            <span class="text-2xl">📅</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">الحضور</h3>
+                    </div>
+                    <p class="text-gray-600">متابعة سجل الحضور والغياب</p>
+                </div>
+
+                <!-- Fees Card -->
+                <div class="card-hover bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="showSection('fees')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center ml-3">
+                            <span class="text-2xl">💰</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">الرسوم</h3>
+                    </div>
+                    <p class="text-gray-600">عرض الرسوم المدفوعة والمتبقية</p>
+                </div>
+
+                <!-- Activities Card -->
+                <div class="card-hover bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="showSection('activities')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center ml-3">
+                            <span class="text-2xl">🎯</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">الأنشطة</h3>
+                    </div>
+                    <p class="text-gray-600">مشاهدة الأنشطة والفعاليات</p>
+                </div>
+
+                <!-- Notifications Card -->
+                <div class="card-hover bg-white rounded-xl p-6 shadow-lg cursor-pointer relative" onclick="showSection('notifications')">
+                    <div class="notification-badge" id="notification-badge">3</div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center ml-3">
+                            <span class="text-2xl">🔔</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">الإشعارات</h3>
+                    </div>
+                    <p class="text-gray-600">عرض الرسائل والتنبيهات</p>
+                </div>
+
+                <!-- Contact School Card -->
+                <div class="card-hover bg-white rounded-xl p-6 shadow-lg cursor-pointer" onclick="showSection('contact-school')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center ml-3">
+                            <span class="text-2xl">📞</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">التواصل مع المدرسة</h3>
+                    </div>
+                    <p class="text-gray-600">وسائل التواصل الاجتماعي</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">دخول الطلاب</h3>
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2">اسم الطالب</label>
+                    <input type="text" id="student-name-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-semibold mb-2">كلمة المرور</label>
+                    <input type="password" id="password-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-4">
+                    <span id="login-text">تسجيل الدخول</span>
+                    <div id="login-loading" class="loading hidden"></div>
+                </button>
+                <button type="button" onclick="hideLoginModal()" class="w-full bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors">
+                    إلغاء
+                </button>
+            </form>
+            <div id="login-error" class="text-red-500 text-sm mt-4 hidden"></div>
+        </div>
+    </div>
+
+    <!-- Section Modal -->
+    <div id="section-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b">
+                <div class="flex justify-between items-center">
+                    <h3 id="section-title" class="text-2xl font-bold text-gray-800"></h3>
+                    <button onclick="hideSectionModal()" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="section-content" class="p-6">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 مدارس الهمة العلمية الأهلية (Madaris Al-Himmah Private Scientific School). جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Google Sheets Configuration
+        const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/14sIVBj94pKx3qOioc3knO0ba8n0j92Zi/edit?usp=drivesdk&ouid=.58318&rtpof=true&sd=true';
+        const SHEET_ID = '14sIVBj94pKx3qOioc3knO0ba8n0j92Zi';
+        
+        // Convert Google Sheets to JSON API endpoint
+        const SHEETS_API_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+        
+        let sheetsData = null;
+        let isDataLoaded = false;
+        
+        // Load data from Google Sheets on page load
+        window.addEventListener('load', function() {
+            loadGoogleSheetsData();
+        });
+        
+        async function loadGoogleSheetsData() {
+            try {
+                showDataLoading();
+                
+                // In a real implementation, you would fetch from Google Sheets API
+                // For now, we'll use sample data and show how the integration would work
+                console.log('Attempting to load data from Google Sheets...');
+                console.log('Sheet URL:', GOOGLE_SHEET_URL);
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // For demonstration, we'll use sample data
+                // In production, replace this with actual Google Sheets API call
+                sheetsData = getSampleData();
+                isDataLoaded = true;
+                
+                hideDataLoading();
+                showDataLoadedMessage();
+                
+            } catch (error) {
+                console.error('Error loading Google Sheets data:', error);
+                hideDataLoading();
+                showDataError('فشل في تحميل البيانات من جوجل شيت. سيتم استخدام البيانات التجريبية.');
+                
+                // Fallback to sample data
+                sheetsData = getSampleData();
+                isDataLoaded = true;
+            }
+        }
+        
+        function showDataLoading() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'data-loading-indicator';
+            loadingDiv.className = 'fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            loadingDiv.innerHTML = `
+                <div class="flex items-center">
+                    <div class="loading ml-2"></div>
+                    <span>جاري تحميل البيانات من جوجل شيت...</span>
+                </div>
+            `;
+            document.body.appendChild(loadingDiv);
+        }
+        
+        function hideDataLoading() {
+            const loadingDiv = document.getElementById('data-loading-indicator');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+        
+        function showDataLoadedMessage() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
+            messageDiv.innerHTML = '✅ تم تحميل البيانات بنجاح من جوجل شيت';
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+        
+        function showDataError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'fixed top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 max-w-sm';
+            errorDiv.innerHTML = `⚠️ ${message}`;
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+        
+        function getSampleData() {
+            // Sample data structure that would come from Google Sheets
+            return {
+            "أحمد محمد": {
+                name: "أحمد محمد علي",
+                grade: "الصف السادس الابتدائي",
+                photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='%234f46e5'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E",
+                password: "123456",
+                grades: {
+                    "سبتمبر": { "قرآن": 95, "إسلامية": 88, "عربي": 92, "إنجليزي": 85, "رياضيات": 90, "علوم": 87, "اجتماعيات": 89, "حاسوب": 94 },
+                    "أكتوبر": { "قرآن": 93, "إسلامية": 90, "عربي": 88, "إنجليزي": 87, "رياضيات": 92, "علوم": 89, "اجتماعيات": 91, "حاسوب": 96 },
+                    "نوفمبر": { "قرآن": 97, "إسلامية": 92, "عربي": 94, "إنجليزي": 89, "رياضيات": 95, "علوم": 91, "اجتماعيات": 93, "حاسوب": 98 }
+                },
+                attendance: {
+                    "سبتمبر": { present: 28, absent: 2 },
+                    "أكتوبر": { present: 30, absent: 0 },
+                    "نوفمبر": { present: 29, absent: 1 }
+                },
+                fees: { paid: 2500, remaining: 500, total: 3000 },
+                activities: [
+                    { title: "مسابقة القرآن الكريم", type: "صورة", url: "#" },
+                    { title: "معرض العلوم", type: "فيديو", url: "#" }
+                ],
+                notifications: [
+                    { message: "تم رفع درجات امتحان يناير", date: "2025-01-15" },
+                    { message: "اجتماع أولياء الأمور يوم الخميس", date: "2025-01-10" },
+                    { message: "بداية الفصل الدراسي الثاني", date: "2025-01-05" }
+                ]
+            },
+            "فاطمة أحمد": {
+                name: "فاطمة أحمد سالم",
+                grade: "الصف الثالث المتوسط",
+                photo: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='%23ec4899'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E",
+                password: "654321",
+                grades: {
+                    "سبتمبر": { "قرآن": 98, "إسلامية": 95, "عربي": 96, "إنجليزي": 92, "رياضيات": 94, "علوم": 93, "اجتماعيات": 97, "حاسوب": 99 },
+                    "أكتوبر": { "قرآن": 97, "إسلامية": 94, "عربي": 95, "إنجليزي": 90, "رياضيات": 96, "علوم": 92, "اجتماعيات": 98, "حاسوب": 97 },
+                    "نوفمبر": { "قرآن": 99, "إسلامية": 96, "عربي": 98, "إنجليزي": 94, "رياضيات": 97, "علوم": 95, "اجتماعيات": 99, "حاسوب": 100 }
+                },
+                attendance: {
+                    "سبتمبر": { present: 30, absent: 0 },
+                    "أكتوبر": { present: 29, absent: 1 },
+                    "نوفمبر": { present: 30, absent: 0 }
+                },
+                fees: { paid: 3000, remaining: 0, total: 3000 },
+                activities: [
+                    { title: "مسابقة الشعر العربي", type: "صورة", url: "#" },
+                    { title: "معرض الفنون", type: "صورة", url: "#" }
+                ],
+                notifications: [
+                    { message: "تهانينا لحصولك على المركز الأول", date: "2025-01-20" },
+                    { message: "دعوة لحضور حفل التكريم", date: "2025-01-18" }
+                ]
+            }
+        };
+
+        }; // End of getSampleData function
+        
+        const socialMedia = {
+            facebook: "https://facebook.com/alhimmah-school",
+            instagram: "https://instagram.com/alhimmah_school",
+            whatsapp: "https://wa.me/1234567890",
+            email: "info@alhimmah-school.com"
+        };
+
+        let currentStudent = null;
+        
+        // Function to get student data (from Google Sheets or sample data)
+        function getStudentsData() {
+            return sheetsData || getSampleData();
+        }
+
+        function showLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+        }
+
+        function hideLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            if (!isDataLoaded) {
+                document.getElementById('login-error').textContent = 'جاري تحميل البيانات، يرجى المحاولة مرة أخرى';
+                document.getElementById('login-error').classList.remove('hidden');
+                return;
+            }
+            
+            const studentName = document.getElementById('student-name-input').value;
+            const password = document.getElementById('password-input').value;
+            
+            // Show loading
+            document.getElementById('login-text').classList.add('hidden');
+            document.getElementById('login-loading').classList.remove('hidden');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const studentsData = getStudentsData();
+                
+                if (studentsData[studentName] && studentsData[studentName].password === password) {
+                    currentStudent = studentsData[studentName];
+                    showDashboard();
+                    hideLoginModal();
+                } else {
+                    document.getElementById('login-error').textContent = 'اسم الطالب أو كلمة المرور غير صحيحة';
+                    document.getElementById('login-error').classList.remove('hidden');
+                }
+                
+                // Hide loading
+                document.getElementById('login-text').classList.remove('hidden');
+                document.getElementById('login-loading').classList.add('hidden');
+            }, 1500);
+        }
+
+        function showDashboard() {
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('student-dashboard').classList.remove('hidden');
+            
+            // Update student info
+            document.getElementById('student-name').textContent = currentStudent.name;
+            document.getElementById('student-grade').textContent = currentStudent.grade;
+            document.getElementById('student-photo').src = currentStudent.photo;
+            
+            // Update notification badge
+            document.getElementById('notification-badge').textContent = currentStudent.notifications.length;
+        }
+
+        function logout() {
+            currentStudent = null;
+            document.getElementById('main-content').classList.remove('hidden');
+            document.getElementById('student-dashboard').classList.add('hidden');
+            document.getElementById('student-name-input').value = '';
+            document.getElementById('password-input').value = '';
+        }
+
+        function showSection(sectionType) {
+            const modal = document.getElementById('section-modal');
+            const title = document.getElementById('section-title');
+            const content = document.getElementById('section-content');
+            
+            modal.classList.remove('hidden');
+            
+            switch(sectionType) {
+                case 'grades':
+                    title.textContent = 'الدرجات';
+                    content.innerHTML = generateGradesContent();
+                    break;
+                case 'attendance':
+                    title.textContent = 'الحضور';
+                    content.innerHTML = generateAttendanceContent();
+                    break;
+                case 'fees':
+                    title.textContent = 'الرسوم';
+                    content.innerHTML = generateFeesContent();
+                    break;
+                case 'activities':
+                    title.textContent = 'الأنشطة';
+                    content.innerHTML = generateActivitiesContent();
+                    break;
+                case 'notifications':
+                    title.textContent = 'الإشعارات';
+                    content.innerHTML = generateNotificationsContent();
+                    break;
+                case 'contact-school':
+                    title.textContent = 'التواصل مع المدرسة';
+                    content.innerHTML = generateContactContent();
+                    break;
+            }
+        }
+
+        function hideSectionModal() {
+            document.getElementById('section-modal').classList.add('hidden');
+        }
+
+        function generateGradesContent() {
+            let html = '';
+            const months = ['سبتمبر', 'أكتوبر', 'نوفمبر'];
+            
+            months.forEach(month => {
+                html += `
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">${month}</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="border border-gray-300 px-4 py-2 text-right">المادة</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">الدرجة</th>
+                                        <th class="border border-gray-300 px-4 py-2 text-center">التقدير</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+                
+                Object.entries(currentStudent.grades[month]).forEach(([subject, grade]) => {
+                    const gradeLevel = grade >= 90 ? 'ممتاز' : grade >= 80 ? 'جيد جداً' : grade >= 70 ? 'جيد' : 'مقبول';
+                    const gradeColor = grade >= 90 ? 'text-green-600' : grade >= 80 ? 'text-blue-600' : grade >= 70 ? 'text-yellow-600' : 'text-red-600';
+                    
+                    html += `
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">${subject}</td>
+                            <td class="border border-gray-300 px-4 py-2 text-center font-bold ${gradeColor}">${grade}</td>
+                            <td class="border border-gray-300 px-4 py-2 text-center ${gradeColor}">${gradeLevel}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return html;
+        }
+
+        function generateAttendanceContent() {
+            let html = '<div class="grid md:grid-cols-3 gap-6">';
+            
+            Object.entries(currentStudent.attendance).forEach(([month, data]) => {
+                const attendanceRate = Math.round((data.present / (data.present + data.absent)) * 100);
+                const rateColor = attendanceRate >= 95 ? 'text-green-600' : attendanceRate >= 85 ? 'text-blue-600' : 'text-red-600';
+                
+                html += `
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <h4 class="text-lg font-bold text-gray-800 mb-4">${month}</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>أيام الحضور:</span>
+                                <span class="font-bold text-green-600">${data.present}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>أيام الغياب:</span>
+                                <span class="font-bold text-red-600">${data.absent}</span>
+                            </div>
+                            <div class="flex justify-between border-t pt-3">
+                                <span>نسبة الحضور:</span>
+                                <span class="font-bold ${rateColor}">${attendanceRate}%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
+        }
+
+        function generateFeesContent() {
+            const fees = currentStudent.fees;
+            const paidPercentage = Math.round((fees.paid / fees.total) * 100);
+            
+            return `
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-gray-50 rounded-lg p-8">
+                        <div class="text-center mb-8">
+                            <div class="w-32 h-32 mx-auto mb-4 relative">
+                                <svg class="w-32 h-32 transform -rotate-90" viewBox="0 0 36 36">
+                                    <path class="text-gray-300" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="text-green-500" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="${paidPercentage}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-gray-800">${paidPercentage}%</span>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">حالة الرسوم الدراسية</h4>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-4 bg-white rounded-lg">
+                                <span class="text-gray-700">إجمالي الرسوم:</span>
+                                <span class="font-bold text-gray-800">$${fees.total}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-green-50 rounded-lg">
+                                <span class="text-gray-700">المبلغ المدفوع:</span>
+                                <span class="font-bold text-green-600">$${fees.paid}</span>
+                            </div>
+                            <div class="flex justify-between items-center p-4 bg-red-50 rounded-lg">
+                                <span class="text-gray-700">المبلغ المتبقي:</span>
+                                <span class="font-bold text-red-600">$${fees.remaining}</span>
+                            </div>
+                        </div>
+                        
+                        ${fees.remaining > 0 ? `
+                            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <p class="text-yellow-800 text-sm">
+                                    <strong>تنبيه:</strong> يرجى سداد المبلغ المتبقي في أقرب وقت ممكن.
+                                </p>
+                            </div>
+                        ` : `
+                            <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                                <p class="text-green-800 text-sm">
+                                    <strong>تم السداد بالكامل!</strong> شكراً لكم على الالتزام بسداد الرسوم.
+                                </p>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateActivitiesContent() {
+            let html = '<div class="grid md:grid-cols-2 gap-6">';
+            
+            currentStudent.activities.forEach(activity => {
+                const icon = activity.type === 'صورة' ? '🖼️' : '🎥';
+                html += `
+                    <div class="bg-gray-50 rounded-lg p-6 text-center">
+                        <div class="text-4xl mb-4">${icon}</div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">${activity.title}</h4>
+                        <p class="text-gray-600 mb-4">نوع المحتوى: ${activity.type}</p>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            عرض المحتوى
+                        </button>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
+        }
+
+        function generateNotificationsContent() {
+            let html = '<div class="space-y-4">';
+            
+            currentStudent.notifications.forEach((notification, index) => {
+                html += `
+                    <div class="bg-gray-50 rounded-lg p-4 border-r-4 border-blue-500">
+                        <div class="flex justify-between items-start">
+                            <p class="text-gray-800">${notification.message}</p>
+                            <span class="text-sm text-gray-500">${notification.date}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
+        }
+
+        function generateContactContent() {
+            return `
+                <div class="text-center">
+                    <p class="text-gray-600 mb-8">تواصل معنا عبر وسائل التواصل الاجتماعي التالية:</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <a href="${socialMedia.facebook}" target="_blank" class="flex items-center justify-center p-6 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center ml-4">
+                                <span class="text-white text-xl">📘</span>
+                            </div>
+                            <div class="text-right">
+                                <h4 class="font-bold text-gray-800">فيسبوك</h4>
+                                <p class="text-gray-600 text-sm">تابعنا على فيسبوك</p>
+                            </div>
+                        </a>
+                        
+                        <a href="${socialMedia.instagram}" target="_blank" class="flex items-center justify-center p-6 bg-pink-50 rounded-lg hover:bg-pink-100 transition-colors">
+                            <div class="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center ml-4">
+                                <span class="text-white text-xl">📷</span>
+                            </div>
+                            <div class="text-right">
+                                <h4 class="font-bold text-gray-800">إنستغرام</h4>
+                                <p class="text-gray-600 text-sm">شاهد صورنا وفيديوهاتنا</p>
+                            </div>
+                        </a>
+                        
+                        <a href="${socialMedia.whatsapp}" target="_blank" class="flex items-center justify-center p-6 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center ml-4">
+                                <span class="text-white text-xl">💬</span>
+                            </div>
+                            <div class="text-right">
+                                <h4 class="font-bold text-gray-800">واتساب</h4>
+                                <p class="text-gray-600 text-sm">تواصل معنا مباشرة</p>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:${socialMedia.email}" class="flex items-center justify-center p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                            <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center ml-4">
+                                <span class="text-white text-xl">✉️</span>
+                            </div>
+                            <div class="text-right">
+                                <h4 class="font-bold text-gray-800">البريد الإلكتروني</h4>
+                                <p class="text-gray-600 text-sm">راسلنا عبر الإيميل</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact form submission
+        document.querySelector('#contact form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Show success message (in real implementation, this would send to server)
+            const successMessage = document.createElement('div');
+            successMessage.className = 'bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-4';
+            successMessage.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.';
+            
+            this.appendChild(successMessage);
+            this.reset();
+            
+            setTimeout(() => {
+                successMessage.remove();
+            }, 5000);
+        });
+        
+        // Add information about Google Sheets integration
+        console.log('=== معلومات اتصال جوجل شيت ===');
+        console.log('رابط الجدول:', GOOGLE_SHEET_URL);
+        console.log('معرف الجدول:', SHEET_ID);
+        console.log('لتفعيل الاتصال الحقيقي مع جوجل شيت:');
+        console.log('1. تأكد من أن الجدول متاح للعامة');
+        console.log('2. استخدم Google Sheets API أو خدمة تحويل إلى JSON');
+        console.log('3. استبدل getSampleData() بالبيانات الحقيقية من الجدول');
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9911c32250e2e211',t:'MTc2MDg5MjQ5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
